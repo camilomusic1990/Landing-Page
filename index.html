@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spain Immigration Guide 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+        
+        .bg-spain-gradient { background: linear-gradient(135deg, #b91c1c 0%, #ea580c 50%, #fbbf24 100%); }
+        .bg-azulejo { background-color: #f8fafc; background-image: linear-gradient(45deg, #e2e8f0 25%, transparent 25%, transparent 75%, #e2e8f0 75%, #e2e8f0), linear-gradient(45deg, #e2e8f0 25%, transparent 25%, transparent 75%, #e2e8f0 75%, #e2e8f0); background-size: 40px 40px; background-position: 0 0, 20px 20px; }
+        .check-item input:checked + span { text-decoration: line-through; color: #9ca3af; }
+        .lang-hidden { display: none !important; }
+        .blur-content { filter: blur(8px); pointer-events: none; user-select: none; opacity: 0.5; height: 400px; overflow: hidden; }
+        
+        /* 3D Flashcards */
+        .step-card { background-color: transparent; perspective: 1000px; height: 320px; cursor: pointer; }
+        .step-card-inner { position: relative; width: 100%; height: 100%; text-align: left; transition: transform 0.6s; transform-style: preserve-3d; }
+        .step-card.flipped .step-card-inner { transform: rotateY(180deg); }
+        .step-card-front, .step-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 1rem; display: flex; flex-direction: column; }
+        .step-card-front { background-color: white; }
+        .step-card-front::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #dc2626 0%, #dc2626 33%, #fbbf24 33%, #fbbf24 66%, #dc2626 66%, #dc2626 100%); opacity: 0.8; border-top-left-radius: 1rem; border-top-right-radius: 1rem; }
+        .step-card-back { background: linear-gradient(to bottom right, #1e293b, #0f172a); color: white; transform: rotateY(180deg); padding: 1.5rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); overflow-y: auto; }
+        .click-hint { animation: pulse 2s infinite; }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-800">
+
+    <!-- Language Toggle -->
+    <div class="fixed top-6 right-6 z-50">
+        <button onclick="toggleLanguage()" class="bg-white/95 backdrop-blur border-2 border-slate-100 shadow-xl text-slate-800 px-5 py-2.5 rounded-full font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2 group">
+            <span id="lang-btn-icon" class="text-xl group-hover:rotate-12 transition-transform">🇺🇸</span> 
+            <span id="lang-btn-text" class="tracking-wide">English Version</span>
+        </button>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SPANISH CONTENT (ID: content-es)           -->
+    <!-- ========================================== -->
+    <div id="content-es">
+        <header class="bg-spain-gradient relative text-white pb-32 pt-24 lg:pt-32">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div class="inline-flex items-center space-x-2 bg-white/20 backdrop-blur border border-white/30 rounded-full px-4 py-1.5 mb-8 shadow-lg">
+                    <span class="text-xl drop-shadow-md">🇪🇸</span><span class="text-sm font-bold text-white tracking-widest uppercase">Edición 2026</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-8 tracking-tight drop-shadow-sm leading-tight">Tu Nueva Vida <br><span class="italic font-light text-yellow-200">comienza en España</span></h1>
+                <p class="text-xl md:text-2xl text-red-50 mb-12 max-w-2xl mx-auto font-light leading-relaxed">Olvídate de la burocracia imposible. Aquí tienes los 10 pasos exactos para vivir, trabajar y disfrutar bajo el sol.</p>
+                <div id="hero-buttons-es" class="flex flex-col sm:flex-row justify-center items-center gap-4"></div>
+            </div>
+            <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none rotate-180">
+                <svg class="relative block w-[calc(100%+1.3px)] h-[60px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#fafaf9"></path></svg>
+            </div>
+        </header>
+
+        <div id="paywall-es" class="max-w-4xl mx-auto px-4 py-12 text-center relative z-20 -mt-20" style="display:none;">
+            <div class="bg-white p-8 rounded-3xl shadow-2xl border-2 border-yellow-400">
+                <div class="text-4xl mb-4">🔒</div>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 font-serif">Contenido Protegido</h2>
+                <p class="text-slate-600 mb-8 text-lg">Guía premium con flashcards, checklists y estrategias 2026.<br>Accede por el precio de un café.</p>
+                <button onclick="triggerPayment()" class="w-full md:w-auto px-8 py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition shadow-lg flex items-center justify-center gap-3 mx-auto"><span>💳</span> Pagar 2€ y Ver Todo</button>
+            </div>
+        </div>
+
+        <div id="premium-content-es">
+            <section id="fase1" class="py-24 bg-stone-50">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center gap-6 mb-16">
+                        <div class="flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-800 text-white font-serif font-bold text-3xl shadow-lg shadow-blue-200 transform -rotate-3">1</div>
+                        <div><h2 class="text-4xl font-bold text-slate-900 mb-2">Antes de Viajar</h2><p class="text-slate-500 text-lg">Haz click en las tarjetas para ver detalles.</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-100 shadow-sm"><div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">1</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">1. Vehículo Legal</h3><p class="text-slate-600 mb-4 leading-relaxed flex-grow">No existe "irse a probar suerte". Necesitas un visado específico para tu perfil.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click para detalles ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">Detalles Clave 2026</h4><ul class="text-sm space-y-3 text-slate-200"><li><strong>Nómada Digital:</strong> Ingresos requeridos ~2.650€/mes. 200% SMI, Contrato remoto con 3 meses de antiguedad </li><li><strong>Estudiante:</strong> Carta de Admisión del centro autorizado + ~600€/mes.</li><li><strong>No Lucrativa (NLV):</strong> ~2.400€/mes. No se puede trabajar.</li></ul></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-100 shadow-sm"><div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">2</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">2. El NIE</h3><p class="text-slate-600 leading-relaxed flex-grow">Tu DNI para extranjeros. Sin él no existes fiscalmente.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click para detalles ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">El Mito del NIE</h4><p class="text-sm leading-relaxed mb-4">Tener NIE no significa tener Residencia. Es solo un numero administrativo.</p><ul class="text-sm space-y-2 text-slate-200 list-disc list-inside"><li>Ciudadanos UE: Deben Pedir cita para Certificado de registro de ciudadano de la UE.</li><li>No-UE: El NIE suele venir impreso en el visado.</p><ul class="text-sm space-y-2 text-slate-200 list-disc list-inside"><li>Formulario Clave:</strong> EX-15.</li></ul></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-100 shadow-sm"><div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">3</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">3. Dinero y Salud</h3><p class="text-slate-600 mb-2 leading-relaxed flex-grow">Demuestra que no serás una carga para el Estado.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click para detalles ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">Requisitos Exactos</h4><ul class="text-sm space-y-3 text-slate-200"><li>Seguro Medico: Debe ser Sin Copagos y con repatriacion. Sanitas, Asisa, o DKV suelen tener productos para extrangeria </li><li>IPREM 2026: Es la referencia base ~600€.</li></ul></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-100 shadow-sm"><div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">4</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">4. Burocracia Clave</h3><p class="text-slate-600 leading-relaxed flex-grow">Apostilla de la Haya y Traducción Jurada.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click para detalles ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">No cometas errores</h4><ul class="text-sm space-y-3 text-slate-200"><li>Vigencia: Los certificados Penales y certificados de matrimonio caducan a los 3 meses. No los saques muy pronto.</li><li>Traducción: Google Translate no sirve. Debe ser un Traductor Jurado oficial certificado por el MAEC de España.</li></ul></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-100 shadow-sm"><div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">5</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">5. La Aplicacion</h3><p class="text-slate-600 leading-relaxed flex-grow">Generalmente en tu Consulado. Algunas excepciones permiten hacerlo en España.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click para detalles ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">¿Aplicar desde España?</h4><p class="text-sm text-slate-200 mb-3">Si es posible para Nómadas y Estudiantes.</h4><p class="text-sm text-slate-200 mb-3">Debes entrar como turista y presentar la solicitud telematica (UGE-CE) al menos 30 dias antes de que caduquen tus 90 dias de estancia legal.</p></div></div></article>
+                    </div>
+                </div>
+            </section>
+
+            <div class="w-full overflow-hidden leading-none bg-stone-50">
+                <svg class="relative block w-[calc(100%+1.3px)] h-[50px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#e7e5e4"></path></svg>
+            </div>
+
+            <section class="py-24 bg-stone-200">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center gap-6 mb-16">
+                        <div class="flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500 to-yellow-600 text-white font-serif font-bold text-3xl shadow-lg shadow-yellow-200 transform -rotate-3">2</div>
+                        <div><h2 class="text-4xl font-bold text-slate-900 mb-2">Instalación</h2><p class="text-slate-600 text-lg">Haz click en las tarjetas para ver detalles.</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-200 shadow-sm"><div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">6</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">6. Sello de Entrada</h3><p class="text-slate-600 leading-relaxed flex-grow">Vital si entras por otro país de la UE.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click para detalles ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">Declaración de Entrada</h4><p class="text-sm text-slate-200">Si tu pasaporte no fue sellado en un aeropuerto Español, tienes 72h para ir a la Policía y pedir una declaracion de entrara.</p></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border-2 border-yellow-400 shadow-lg shadow-yellow-100"><div class="absolute top-4 right-4 text-2xl animate-bounce">📍</div><div class="w-12 h-12 bg-yellow-100 text-yellow-700 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">7</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">7. Empadronamiento</h3><p class="text-slate-600 leading-relaxed flex-grow">El paso mas critico: Registro en el ayuntamiento.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click para detalles ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">Sin Padrón no eres Nadie</h4><p class="text-sm text-slate-200 mb-3">Necesitas contrato de alquiler original + ultimo recibo de pago.</h4><p class="text-sm text-slate-200 mb-3"> Si alquilas una habitacion,el dueno debe ir contigo o firmar una autorizacion.</h4><p class="text-sm text-slate-200"> Obligatorio para TIE y Sanidad.</h4><p class="text-sm text-slate-200"> Es obligatorio renovarlo cada 2 años si no eres ciudadano europeo.</p></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-200 shadow-sm"><div class="w-12 h-12 bg-gray-50 text-gray-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">8</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">8. TIE (Física)</h3><p class="text-slate-600 leading-relaxed flex-grow">Pide cita para Huellas.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click para detalles ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">La Cita Imposible</h4><p class="text-sm text-slate-200 mb-3">Web Sede Electrónica - cita previa extrangeria - Policia "Toma de huellas". </h4><p class="text-sm text-slate-200 mb-3"> Lleva: Formulario EX-17 y tasa 790-012 paga (16 EUR) en cajero.</h4><p class="text-sm text-slate-200 mb-3">Resolucion favorable impresa + volante de empadronamiento</p></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-200 shadow-sm"><div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">9</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">9. IBAN Español</h3><p class="text-slate-600 leading-relaxed flex-grow">Para domiciliar recibos. Asegurate que comienza con las letras "ES"</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click para detalles ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">¿Qué banco?</h4><p class="text-sm text-slate-200 mb-3">Los bancos tradicionales (Santander, BBVA, Caixabank) suelen pedir la TIE fisica y nomina para abrir la cuenta.</h4><p class="text-sm text-slate-200 mb-3">Recomendacion: Empieza con Neobancos (N26, Revolut) que aceptan pasaporte + NIE en papel pero asegurate de tener un IBAN español para pagar recibos como electricidad e internet.</p></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-200 shadow-sm"><div class="w-12 h-12 bg-cyan-50 text-cyan-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">10</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">10. Firma Digital</h3><p class="text-slate-600 leading-relaxed flex-grow">Trámites online.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click para detalles ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">Certificado FNMT</h4><p class="text-sm text-slate-200 mb-3">Te ahorra permite hacer hasta un 90% de papeleo y tramites desde casa.(seguridad social, renovaciones, impuestos).</h4><p class="text-sm text-slate-200 mb-3"> 1. Obten el codigo FNMT en la pagina. </h4><p class="text-sm text-slate-200"> 2. Verifica tu identidad en persona solo una vez.</h4><p class="text-sm text-slate-200"> 3. Descarga el archivo en tu computador.</p></div></div></article>
+                    </div>
+                </div>
+            </section>
+
+            <section id="empleo" class="py-24 bg-azulejo border-t border-slate-200 relative">
+                 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="text-center mb-16">
+                        <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-700 font-bold tracking-wider text-xs uppercase mb-4 border border-blue-200">Estrategia 2026</span>
+                        <h2 class="text-4xl md:text-5xl font-bold text-slate-900">Trabajar en España</h2>
+                        <p class="text-slate-500 mt-6 max-w-2xl mx-auto text-lg">El mercado laboral español es relacional. Aquí te contamos cómo acceder.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="space-y-6 bg-white/80 backdrop-blur p-8 rounded-3xl border border-white shadow-xl">
+                            <div class="flex gap-5"><div class="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 font-bold">1</div><div><h3 class="text-xl font-bold text-slate-900 font-serif">Los Portales</h3><p class="text-slate-600 mt-2 text-sm leading-relaxed">InfoJobs y LinkedIn.</p></div></div>
+                            <div class="flex gap-5"><div class="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 font-bold">2</div><div><h3 class="text-xl font-bold text-slate-900 font-serif">El Mercado Oculto</h3><p class="text-slate-600 mt-2 text-sm leading-relaxed">Networking presencial.</p></div></div>
+                            <div class="flex gap-5"><div class="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 font-bold">3</div><div><h3 class="text-xl font-bold text-slate-900 font-serif">Foto en el CV</h3><p class="text-slate-600 mt-2 text-sm leading-relaxed">Sí, aquí todavía se usa foto.</p></div></div>
+                        </div>
+                        <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-10 rounded-3xl relative overflow-hidden shadow-2xl">
+                            <h3 class="text-3xl font-bold mb-8 font-serif">Sectores Top</h3>
+                            <ul class="space-y-5">
+                                <li class="flex items-center gap-4"><span class="font-medium text-lg">Tecnología & Data</span></li>
+                                <li class="flex items-center gap-4"><span class="font-medium text-lg">Energías Renovables</span></li>
+                                <li class="flex items-center gap-4"><span class="font-medium text-lg">Turismo de Lujo</span></li>
+                                <li class="flex items-center gap-4"><span class="font-medium text-lg">Salud (Enfermería)</span></li>
+                            </ul>
+                            <button onclick="downloadCV('es')" class="mt-10 w-full py-4 bg-white text-slate-900 font-bold rounded-xl hover:bg-blue-50 transition shadow-lg">Descargar Plantilla CV Español</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Errors Section ES -->
+            <section class="py-20 bg-rose-50">
+                <div class="max-w-4xl mx-auto px-4">
+                    <h2 class="text-3xl font-bold text-rose-900 mb-10 text-center font-serif">⛔ Errores de Novato</h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-xl border-l-4 border-rose-500 shadow-sm hover:shadow-md transition"><h4 class="font-bold text-rose-700 mb-2 text-lg">Penales Caducados</h4><p class="text-sm text-slate-600">Duran solo 3 meses.</p></div>
+                        <div class="bg-white p-6 rounded-xl border-l-4 border-rose-500 shadow-sm hover:shadow-md transition"><h4 class="font-bold text-rose-700 mb-2 text-lg">Alquiler Sin Contrato</h4><p class="text-sm text-slate-600">Sin contrato no hay Padrón.</p></div>
+                        <div class="bg-white p-6 rounded-xl border-l-4 border-rose-500 shadow-sm hover:shadow-md transition"><h4 class="font-bold text-rose-700 mb-2 text-lg">NIE ≠ Residencia</h4><p class="text-sm text-slate-600">La TIE es lo que importa.</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Checklist ES -->
+            <section id="checklist" class="py-24 bg-white">
+                <div class="max-w-3xl mx-auto px-4">
+                    <div class="bg-slate-50 rounded-[2.5rem] p-8 md:p-12 border border-slate-200 shadow-2xl relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 via-yellow-400 to-red-500"></div>
+                        <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center font-serif">Tu Lista de Control</h2>
+                        <div class="space-y-4 mt-8">
+                            <label class="check-item flex items-center p-4 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-slate-300 transition shadow-sm hover:shadow-md"><input type="checkbox" class="w-6 h-6 text-red-600 rounded focus:ring-red-500 border-gray-300 mr-4 transition"><span class="text-slate-700 font-medium select-none text-lg">Pasaporte (+1 año vigencia)</span></label>
+                            <label class="check-item flex items-center p-4 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-slate-300 transition shadow-sm hover:shadow-md"><input type="checkbox" class="w-6 h-6 text-red-600 rounded focus:ring-red-500 border-gray-300 mr-4 transition"><span class="text-slate-700 font-medium select-none text-lg">Antecedentes Penales</span></label>
+                            <label class="check-item flex items-center p-4 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-slate-300 transition shadow-sm hover:shadow-md"><input type="checkbox" class="w-6 h-6 text-red-600 rounded focus:ring-red-500 border-gray-300 mr-4 transition"><span class="text-slate-700 font-medium select-none text-lg">Seguro Médico Privado</span></label>
+                            <label class="check-item flex items-center p-4 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-slate-300 transition shadow-sm hover:shadow-md"><input type="checkbox" class="w-6 h-6 text-red-600 rounded focus:ring-red-500 border-gray-300 mr-4 transition"><span class="text-slate-700 font-medium select-none text-lg">Certificado de Fondos</span></label>
+                            <label class="check-item flex items-center p-4 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-slate-300 transition shadow-sm hover:shadow-md"><input type="checkbox" class="w-6 h-6 text-red-600 rounded focus:ring-red-500 border-gray-300 mr-4 transition"><span class="text-slate-700 font-medium select-none text-lg">Cita Previa Extranjería</span></label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+                        <footer class="bg-slate-900 text-slate-400 py-16 text-center text-sm relative overflow-hidden">
+                <div class="max-w-4xl mx-auto px-4 relative z-10"><p>© 2026 Guía de Inmigración España</p><button onclick="resetPurchase()" class="mt-8 text-xs text-slate-700 hover:text-white underline">Resetear Demo (Test)</button></div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- ENGLISH CONTENT (ID: content-en)           -->
+    <!-- ========================================== -->
+    <div id="content-en" class="lang-hidden">
+        <header class="bg-spain-gradient relative text-white pb-32 pt-24 lg:pt-32">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div class="inline-flex items-center space-x-2 bg-white/20 backdrop-blur border border-white/30 rounded-full px-4 py-1.5 mb-8 shadow-lg">
+                    <span class="text-xl drop-shadow-md">🇪🇸</span><span class="text-sm font-bold text-white tracking-widest uppercase">2026 Edition</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-8 tracking-tight drop-shadow-sm leading-tight">Your New Life <br><span class="italic font-light text-yellow-200">starts in Spain</span></h1>
+                <p class="text-xl md:text-2xl text-red-50 mb-12 max-w-2xl mx-auto font-light leading-relaxed">Skip the bureaucratic nightmare. Here are the 10 exact steps to live, work, and enjoy life under the sun.</p>
+                <div id="hero-buttons-en" class="flex flex-col sm:flex-row justify-center items-center gap-4"></div>
+            </div>
+            <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none rotate-180">
+                <svg class="relative block w-[calc(100%+1.3px)] h-[60px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#fafaf9"></path></svg>
+            </div>
+        </header>
+
+        <div id="paywall-en" class="max-w-4xl mx-auto px-4 py-12 text-center relative z-20 -mt-20" style="display:none;">
+            <div class="bg-white p-8 rounded-3xl shadow-2xl border-2 border-yellow-400">
+                <div class="text-4xl mb-4">🔒</div>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4 font-serif">Protected Content</h2>
+                <p class="text-slate-600 mb-8 text-lg">Premium guide with detailed Flashcards, checklists, and 2026 job strategies.<br>Access immediately for the price of a coffee.</p>
+                <button onclick="triggerPayment()" class="w-full md:w-auto px-8 py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition shadow-lg flex items-center justify-center gap-3 mx-auto"><span>💳</span> Pay €2 & Unlock</button>
+            </div>
+        </div>
+
+        <div id="premium-content-en">
+            <section id="fase1-en" class="py-24 bg-stone-50">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center gap-6 mb-16">
+                        <div class="flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-800 text-white font-serif font-bold text-3xl shadow-lg shadow-blue-200 transform -rotate-3">1</div>
+                        <div><h2 class="text-4xl font-bold text-slate-900 mb-2">Before You Travel</h2><p class="text-slate-500 text-lg">Click the cards to see hidden details.</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-100 shadow-sm"><div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">1</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">1. Legal Vehicle</h3><p class="text-slate-600 mb-4 leading-relaxed flex-grow">There is no such thing as going "to try your luck". You need a specific visa for your profile.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click for details ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">2026 Key Details</h4><ul class="text-sm space-y-3 text-slate-200"><li><strong>Digital Nomad:</strong> Required income ~€2,650/mo (200% SMI). Remote contract +3 months old.</li><li><strong>Student:</strong> Admission letter from authorized center + ~€600/mo in bank account.</li><li><strong>Non-Lucrative (NLV):</strong> ~€2,400/mo (400% IPREM). Working is prohibited.</li></ul></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-100 shadow-sm"><div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">2</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">2. The NIE</h3><p class="text-slate-600 leading-relaxed flex-grow">Your ID for foreigners. Without it, you don't exist financially.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click for details ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">NIE Mythbuster</h4><p class="text-sm leading-relaxed mb-4">Having a NIE does NOT mean residency. It's just an administrative number.</p><ul class="text-sm space-y-2 text-slate-200 list-disc list-inside"><li><strong>EU Citizens:</strong> Must book an appointment for "EU Citizen Registration Certificate" (Green paper).</li><li><strong>Non-EU:</strong> The NIE usually comes printed on your visa sticker.</li><li>Key Form: <strong>EX-15</strong>.</li></ul></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-100 shadow-sm"><div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">3</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">3. Funds & Health</h3><p class="text-slate-600 mb-2 leading-relaxed flex-grow">Prove you won't be a burden to the State.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click for details ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">Exact Requirements</h4><ul class="text-sm space-y-3 text-slate-200"><li><strong>Health Insurance:</strong> Must be "No Copay" and include repatriation. Sanitas, Adeslas, or DKV have specific products for expats.</li><li><strong>IPREM 2026:</strong> The base reference index (~€600).</li><li>Calc: IPREM x (visa multiplier) x 12 months.</li></ul></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-100 shadow-sm"><div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">4</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">4. Key Bureaucracy</h3><p class="text-slate-600 leading-relaxed flex-grow">Two magic stamps: The Hague Apostille and Sworn Translation.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click for details ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">Don't mess this up</h4><ul class="text-sm space-y-3 text-slate-200"><li><strong>Validity:</strong> Criminal Records and Marriage Certificates expire in 3 months. Don't request them too early.</li><li><strong>Translation:</strong> Google Translate is void. Must be a "Traductor Jurado" certified by the Spanish MAEC.</li></ul></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-100 shadow-sm"><div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">5</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">5. The Application</h3><p class="text-slate-600 leading-relaxed flex-grow">Generally at your home Consulate. Some exceptions allow applying from within Spain.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click for details ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">Apply from Spain?</h4><p class="text-sm text-slate-200 mb-3">Yes, possible for <strong>Digital Nomads</strong> and <strong>Students</strong>.</p><p class="text-sm text-slate-200">You must enter as a tourist and submit the online application (UGE-CE) at least 30 days before your 90-day legal stay expires.</p></div></div></article>
+                    </div>
+                </div>
+            </section>
+
+            <div class="w-full overflow-hidden leading-none bg-stone-50">
+                <svg class="relative block w-[calc(100%+1.3px)] h-[50px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#e7e5e4"></path></svg>
+            </div>
+
+            <section class="py-24 bg-stone-200">
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center gap-6 mb-16">
+                        <div class="flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500 to-yellow-600 text-white font-serif font-bold text-3xl shadow-lg shadow-yellow-200 transform -rotate-3">2</div>
+                        <div><h2 class="text-4xl font-bold text-slate-900 mb-2">Arrival in Spain</h2><p class="text-slate-600 text-lg">Landing is just the beginning. Click the cards.</p></div>
+                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-200 shadow-sm"><div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">6</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">6. Entry Stamp</h3><p class="text-slate-600 leading-relaxed flex-grow">Vital if entering via another Schengen country (e.g. layover in Paris).</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click for details ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">Declaration of Entry</h4><p class="text-sm text-slate-200 mb-3">If your passport wasn't stamped at a Spanish airport (e.g. layover in Germany), you have no proof of arrival date.</p><p class="text-sm text-slate-200">You have <strong>72 hours</strong> to go to a National Police Station and request a "Declaración de Entrada". Keep your boarding pass.</p></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border-2 border-yellow-400 shadow-lg shadow-yellow-100"><div class="absolute top-4 right-4 text-2xl animate-bounce">📍</div><div class="w-12 h-12 bg-yellow-100 text-yellow-700 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">7</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">7. Empadronamiento</h3><p class="text-slate-600 leading-relaxed flex-grow"><strong>The most critical step.</strong> Register at the Town Hall.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click for details ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">No Padron = No Life</h4><ul class="text-sm space-y-3 text-slate-200"><li>You need: Original rental contract + last payment receipt.</li><li>If renting a room: The landlord must go with you or sign an authorization.</li><li>Mandatory to renew every 2 years for non-EU citizens.</li></ul></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-200 shadow-sm"><div class="w-12 h-12 bg-gray-50 text-gray-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">8</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">8. TIE (Physical Card)</h3><p class="text-slate-600 leading-relaxed flex-grow">Book "Fingerprints" appointment. Bring paid tax form.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click for details ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">The Impossible Appt.</h4><ul class="text-sm space-y-3 text-slate-200"><li>Website: Sede Electrónica > Cita Previa Extranjería > "Policía - Toma de Huellas".</li><li>Bring: Form <strong>EX-17</strong> and Tax <strong>790-012</strong> (~€16) paid at an ATM.</li><li>Bring your Resolution Letter + Padron Certificate.</li></ul></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-200 shadow-sm"><div class="w-12 h-12 bg-teal-50 text-teal-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">9</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">9. Spanish IBAN</h3><p class="text-slate-600 leading-relaxed flex-grow">Neobanks or traditional. Ensure it starts with "ES".</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click for details ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">Which bank?</h4><p class="text-sm text-slate-200 mb-3">Traditional banks (Santander, BBVA) often demand the physical TIE card and payroll to open an account.</p><p class="text-sm text-slate-200"><strong>Tip:</strong> Start with Neobanks (N26, Revolut) that accept Passport + Paper NIE, but ensure you get a Spanish IBAN for utility bills.</p></div></div></article>
+                        <article class="step-card group" onclick="toggleCard(this)"><div class="step-card-inner"><div class="step-card-front p-8 border border-slate-200 shadow-sm"><div class="w-12 h-12 bg-cyan-50 text-cyan-600 rounded-xl flex items-center justify-center mb-6"><span class="font-bold text-lg">10</span></div><h3 class="text-xl font-bold text-slate-900 mb-3">10. Digital Cert</h3><p class="text-slate-600 leading-relaxed flex-grow">Your bureaucratic superpower.</p><div class="mt-auto text-center"><span class="text-xs font-bold text-blue-500 uppercase tracking-widest click-hint">Click for details ↻</span></div></div><div class="step-card-back"><h4 class="text-lg font-bold text-yellow-400 mb-4">FNMT Certificate</h4><p class="text-sm text-slate-200 mb-2">Allows you to do 90% of paperwork from home (Social Security, Renewals, Tax Office).</p><ol class="text-sm text-slate-200 list-decimal list-inside"><li>Request code on FNMT website.</li><li>Verify identity in person (once).</li><li>Download file to browser.</li></ol></div></div></article>
+                    </div>
+                </div>
+            </section>
+
+            <section id="jobs-en" class="py-24 bg-azulejo border-t border-slate-200 relative">
+                 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="text-center mb-16">
+                        <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-700 font-bold tracking-wider text-xs uppercase mb-4 border border-blue-200">2026 Strategy</span>
+                        <h2 class="text-4xl md:text-5xl font-bold text-slate-900">Working in Spain</h2>
+                        <p class="text-slate-500 mt-6 max-w-2xl mx-auto text-lg">The Spanish job market is relational. Here is how to break in.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="space-y-6 bg-white/80 backdrop-blur p-8 rounded-3xl border border-white shadow-xl">
+                            <div class="flex gap-5"><div class="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 font-bold">1</div><div><h3 class="text-xl font-bold text-slate-900 font-serif">The Portals</h3><p class="text-slate-600 mt-2 text-sm leading-relaxed">Forget global sites. Use <strong>InfoJobs</strong> for everything, and <strong>LinkedIn</strong> for multinationals.</p></div></div>
+                            <div class="flex gap-5"><div class="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 font-bold">2</div><div><h3 class="text-xl font-bold text-slate-900 font-serif">The Hidden Market</h3><p class="text-slate-600 mt-2 text-sm leading-relaxed">In Spain, "who you know" matters. Go to in-person networking events in Madrid/BCN.</p></div></div>
+                            <div class="flex gap-5"><div class="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 font-bold">3</div><div><h3 class="text-xl font-bold text-slate-900 font-serif">CV Photo</h3><p class="text-slate-600 mt-2 text-sm leading-relaxed">Yes, photos are still standard here. Smile, be professional, and keep it under 2 pages.</p></div></div>
+                        </div>
+                        <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-10 rounded-3xl relative overflow-hidden shadow-2xl">
+                            <div class="absolute top-0 right-0 -mr-8 -mt-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+                            <h3 class="text-3xl font-bold mb-8 font-serif">Top Sectors 2026</h3>
+                            <ul class="space-y-5">
+                                <li class="flex items-center gap-4 group"><div class="w-3 h-3 bg-green-400 rounded-full group-hover:scale-150 transition-transform"></div><span class="font-medium text-lg">Tech & Data</span></li>
+                                <li class="flex items-center gap-4 group"><div class="w-3 h-3 bg-yellow-400 rounded-full group-hover:scale-150 transition-transform"></div><span class="font-medium text-lg">Renewable Energy</span></li>
+                                <li class="flex items-center gap-4 group"><div class="w-3 h-3 bg-orange-400 rounded-full group-hover:scale-150 transition-transform"></div><span class="font-medium text-lg">Luxury Tourism</span></li>
+                                <li class="flex items-center gap-4 group"><div class="w-3 h-3 bg-rose-400 rounded-full group-hover:scale-150 transition-transform"></div><span class="font-medium text-lg">Healthcare (Nursing)</span></li>
+                            </ul>
+                            <button onclick="downloadCV('en')" class="mt-10 w-full py-4 bg-white text-slate-900 font-bold rounded-xl hover:bg-blue-50 transition shadow-lg">Download English CV Template</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 bg-rose-50">
+                <div class="max-w-4xl mx-auto px-4">
+                    <h2 class="text-3xl font-bold text-rose-900 mb-10 text-center font-serif">⛔ Rookie Mistakes</h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-xl border-l-4 border-rose-500 shadow-sm hover:shadow-md transition"><h4 class="font-bold text-rose-700 mb-2 text-lg">Expired Records</h4><p class="text-sm text-slate-600">They last only 3 months. If you get them too early, they expire before you land.</p></div>
+                        <div class="bg-white p-6 rounded-xl border-l-4 border-rose-500 shadow-sm hover:shadow-md transition"><h4 class="font-bold text-rose-700 mb-2 text-lg">No Contract Rent</h4><p class="text-sm text-slate-600">If you pay cash, you can't register (Padron). No Padron means no papers.</p></div>
+                        <div class="bg-white p-6 rounded-xl border-l-4 border-rose-500 shadow-sm hover:shadow-md transition"><h4 class="font-bold text-rose-700 mb-2 text-lg">NIE ≠ Residency</h4><p class="text-sm text-slate-600">NIE is just a number. The TIE is the card that lets you live here.</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="checklist" class="py-24 bg-white">
+                <div class="max-w-3xl mx-auto px-4">
+                    <div class="bg-slate-50 rounded-[2.5rem] p-8 md:p-12 border border-slate-200 shadow-2xl relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 via-yellow-400 to-red-500"></div>
+                        <h2 class="text-3xl font-bold text-slate-900 mb-2 text-center font-serif">Your Checklist</h2>
+                        <p class="text-center text-slate-500 mb-10">Mark your milestones</p>
+                        <div class="space-y-4">
+                            <label class="check-item flex items-center p-4 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-slate-300 transition shadow-sm hover:shadow-md"><input type="checkbox" class="w-6 h-6 text-red-600 rounded focus:ring-red-500 border-gray-300 mr-4 transition"><span class="text-slate-700 font-medium select-none text-lg">Passport (+1 year validity)</span></label>
+                            <label class="check-item flex items-center p-4 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-slate-300 transition shadow-sm hover:shadow-md"><input type="checkbox" class="w-6 h-6 text-red-600 rounded focus:ring-red-500 border-gray-300 mr-4 transition"><span class="text-slate-700 font-medium select-none text-lg">Criminal Records (Apostilled)</span></label>
+                            <label class="check-item flex items-center p-4 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-slate-300 transition shadow-sm hover:shadow-md"><input type="checkbox" class="w-6 h-6 text-red-600 rounded focus:ring-red-500 border-gray-300 mr-4 transition"><span class="text-slate-700 font-medium select-none text-lg">Private Health Insurance</span></label>
+                            <label class="check-item flex items-center p-4 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-slate-300 transition shadow-sm hover:shadow-md"><input type="checkbox" class="w-6 h-6 text-red-600 rounded focus:ring-red-500 border-gray-300 mr-4 transition"><span class="text-slate-700 font-medium select-none text-lg">Bank Certificate of Funds</span></label>
+                            <label class="check-item flex items-center p-4 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-slate-300 transition shadow-sm hover:shadow-md"><input type="checkbox" class="w-6 h-6 text-red-600 rounded focus:ring-red-500 border-gray-300 mr-4 transition"><span class="text-slate-700 font-medium select-none text-lg">Immigration Appointment</span></label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="bg-slate-900 text-slate-400 py-16 text-center text-sm relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+                <div class="max-w-4xl mx-auto px-4 relative z-10">
+                    <div class="text-2xl mb-6 opacity-50">🇪🇸</div>
+                    <p class="mb-6 font-serif text-lg text-slate-300">© 2026 Spain Immigration Guide</p>
+                    <p class="opacity-60 max-w-xl mx-auto leading-relaxed">Legal Disclaimer: This guide is crafted with love but does not replace a licensed lawyer. Laws change; always confirm with official sources.</p>
+                    <button onclick="resetPurchase()" class="mt-8 text-xs text-slate-700 hover:text-white underline">Reset Demo (Test)</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'es';
+        const apiKey = ""; 
+        const HAS_PAID_KEY = 'spain_guide_paid';
+
+        function checkPaymentStatus() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('pago') === 'exitoso') {
+                localStorage.setItem(HAS_PAID_KEY, 'true');
+                window.history.replaceState({}, document.title, window.location.pathname);
+                alert("¡Pago confirmado! Contenido desbloqueado.");
+            }
+            
+            const hasPaid = true; // FORCE UNLOCK FOR REVIEW
+            const paywallEs = document.getElementById('paywall-es');
+            const paywallEn = document.getElementById('paywall-en');
+            const contentEs = document.getElementById('premium-content-es');
+            const contentEn = document.getElementById('premium-content-en');
+
+            if (hasPaid) {
+                if (paywallEs) paywallEs.style.display = 'none';
+                if (paywallEn) paywallEn.style.display = 'none';
+                if (contentEs) contentEs.classList.remove('blur-content');
+                if (contentEn) contentEn.classList.remove('blur-content');
+                updateHeroButtons(true);
+            } else {
+                if (paywallEs) paywallEs.style.display = 'block';
+                if (paywallEn) paywallEn.style.display = 'block';
+                if (contentEs) contentEs.classList.add('blur-content');
+                if (contentEn) contentEn.classList.add('blur-content');
+                updateHeroButtons(false);
+            }
+        }
+
+        function toggleCard(card) { card.classList.toggle('flipped'); }
+        function triggerPayment() { window.open('https://gumroad.com/l/TU-ENLACE-GUMROAD-AQUI', '_blank'); }
+        function resetPurchase() { localStorage.removeItem(HAS_PAID_KEY); location.reload(); }
+
+        function downloadCV(lang = 'es') {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const data = (lang === 'es') ? {
+                headerName: "NOMBRE APELLIDO", headerTitle: "PROFESIÓN / TÍTULO", sidebarContact: "CONTACTO", sidebarSkills: "HABILIDADES", sidebarLangs: "IDIOMAS", mainProfile: "PERFIL PROFESIONAL", mainExp: "EXPERIENCIA LABORAL", mainEdu: "FORMACIÓN ACADÉMICA",
+                skillsList: ["Comunicación", "Trabajo en equipo", "Inglés C1", "Gestión de Tiempo", "Adaptabilidad"],
+                langList: ["Español (Nativo/B2)", "Inglés (C1)"],
+                profileText: "Profesional motivado con X años de experiencia en el sector. Buscando oportunidades para crecer en España. Capacidad demostrada para adaptarse a entornos multiculturales y aportar valor inmediato.",
+                jobTitle1: "Cargo / Puesto", jobComp1: "Empresa | 2023 - Presente", jobDesc1: ["• Logro principal o responsabilidad destacada.", "• Gestión de proyectos y equipos."],
+                jobTitle2: "Cargo Anterior", jobComp2: "Empresa Anterior | 2020 - 2023", jobDesc2: ["• Desarrollo de estrategias clave.", "• Aumento de ventas en un 20%."],
+                eduTitle: "Grado / Máster", eduComp: "Universidad / Institución | Año", filename: "Plantilla_CV_Espana_2026.pdf"
+            } : {
+                headerName: "NAME SURNAME", headerTitle: "PROFESSION / JOB TITLE", sidebarContact: "CONTACT", sidebarSkills: "SKILLS", sidebarLangs: "LANGUAGES", mainProfile: "PROFESSIONAL PROFILE", mainExp: "WORK EXPERIENCE", mainEdu: "EDUCATION",
+                skillsList: ["Communication", "Teamwork", "English C1", "Time Management", "Adaptability"],
+                langList: ["Spanish (Native/B2)", "English (C1)"],
+                profileText: "Motivated professional with X years of experience in the sector. Seeking opportunities to grow in Spain. Demonstrated ability to adapt to multicultural environments and add immediate value.",
+                jobTitle1: "Job Title / Role", jobComp1: "Company Name | 2023 - Present", jobDesc1: ["• Main achievement or key responsibility.", "• Project and team management."],
+                jobTitle2: "Previous Role", jobComp2: "Previous Company | 2020 - 2023", jobDesc2: ["• Development of key strategies.", "• Sales increase of 20%."],
+                eduTitle: "Degree / Master", eduComp: "University / Institution | Year", filename: "Spanish_CV_Template_2026.pdf"
+            };
+
+            const darkBlue = '#2c3e50';
+            const lightGrey = '#ecf0f1';
+            const white = '#ffffff';
+            const accentRed = '#e74c3c'; 
+            const sidebarWidth = 60;
+            const pageHeight = doc.internal.pageSize.height;
+            const pageWidth = doc.internal.pageSize.width;
+
+            doc.setFillColor(darkBlue);
+            doc.rect(0, 0, sidebarWidth, pageHeight, 'F');
+            doc.setFillColor(lightGrey);
+            doc.circle(sidebarWidth / 2, 40, 20, 'F');
+            doc.setFontSize(8);
+            doc.setTextColor(darkBlue);
+            doc.text(lang === 'es' ? "FOTO" : "PHOTO", sidebarWidth / 2, 40, { align: 'center' });
+
+            doc.setTextColor(white);
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "bold");
+            doc.text(data.sidebarContact, 10, 80);
+            doc.setDrawColor(accentRed);
+            doc.line(10, 82, sidebarWidth - 10, 82);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(9);
+            let yContact = 90;
+            doc.text("+34 600 000 000", 10, yContact);
+            doc.text("email@example.com", 10, yContact + 6);
+            doc.text("Madrid, Spain", 10, yContact + 12);
+            doc.text("linkedin.com/in/you", 10, yContact + 18);
+
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(10);
+            doc.text(data.sidebarSkills, 10, yContact + 35);
+            doc.line(10, yContact + 37, sidebarWidth - 10, yContact + 37);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(9);
+            let ySkills = yContact + 45;
+            data.skillsList.forEach(skill => { doc.text("• " + skill, 10, ySkills); ySkills += 6; });
+
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(10);
+            doc.text(data.sidebarLangs, 10, ySkills + 10);
+            doc.line(10, ySkills + 12, sidebarWidth - 10, ySkills + 12);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(9);
+            let yLangs = ySkills + 20;
+            data.langList.forEach(l => { doc.text(l, 10, yLangs); yLangs += 6; });
+
+            const mainX = sidebarWidth + 10;
+            const mainWidth = pageWidth - sidebarWidth - 20;
+            doc.setTextColor(darkBlue);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(24);
+            doc.text(data.headerName, mainX, 30);
+            doc.setFontSize(14);
+            doc.setTextColor(accentRed);
+            doc.text(data.headerTitle, mainX, 38);
+
+            doc.setTextColor(darkBlue);
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text(data.mainProfile, mainX, 55);
+            doc.setDrawColor(darkBlue);
+            doc.line(mainX, 57, pageWidth - 10, 57);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.setTextColor('#333333');
+            const splitProfile = doc.splitTextToSize(data.profileText, mainWidth);
+            doc.text(splitProfile, mainX, 65);
+
+            let yExp = 90;
+            doc.setTextColor(darkBlue);
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text(data.mainExp, mainX, yExp);
+            doc.line(mainX, yExp + 2, pageWidth - 10, yExp + 2);
+            yExp += 10;
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "bold");
+            doc.text(data.jobTitle1, mainX, yExp);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.text(data.jobComp1, mainX, yExp + 5);
+            doc.setTextColor('#555555');
+            data.jobDesc1.forEach((desc, i) => { doc.text(desc, mainX + 5, yExp + 10 + (i*5)); });
+
+            yExp += 25;
+            doc.setTextColor(darkBlue);
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "bold");
+            doc.text(data.jobTitle2, mainX, yExp);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.text(data.jobComp2, mainX, yExp + 5);
+            doc.setTextColor('#555555');
+            data.jobDesc2.forEach((desc, i) => { doc.text(desc, mainX + 5, yExp + 10 + (i*5)); });
+
+            let yEdu = yExp + 30;
+            doc.setTextColor(darkBlue);
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text(data.mainEdu, mainX, yEdu);
+            doc.line(mainX, yEdu + 2, pageWidth - 10, yEdu + 2);
+            yEdu += 10;
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "bold");
+            doc.text(data.eduTitle, mainX, yEdu);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.text(data.eduComp, mainX, yEdu + 5);
+
+            doc.save(data.filename);
+            alert((lang === 'es' ? "¡PDF generado!" : "PDF Generated!") + " Check your downloads.");
+        }
+
+        function updateHeroButtons(isPaid) {
+            const esContainer = document.getElementById('hero-buttons-es');
+            const enContainer = document.getElementById('hero-buttons-en');
+            if (esContainer) esContainer.innerHTML = isPaid ? `<a href="#fase1" class="px-8 py-4 bg-white text-red-700 font-bold rounded-xl hover:bg-red-50 transition shadow-xl hover:shadow-2xl transform hover:-translate-y-1">📖 Leer Guía Completa</a>` : `<button onclick="triggerPayment()" class="px-8 py-4 bg-yellow-400 text-red-900 font-bold rounded-xl hover:bg-yellow-300 transition shadow-xl hover:shadow-2xl transform hover:-translate-y-1 flex items-center gap-2 ring-4 ring-yellow-400/30 animate-pulse"><span>🔒</span> Desbloquear Guía Completa (2€)</button>`;
+            if (enContainer) enContainer.innerHTML = isPaid ? `<a href="#fase1-en" class="px-8 py-4 bg-white text-red-700 font-bold rounded-xl hover:bg-red-50 transition shadow-xl hover:shadow-2xl transform hover:-translate-y-1">📖 Read Full Guide</a>` : `<button onclick="triggerPayment()" class="px-8 py-4 bg-yellow-400 text-red-900 font-bold rounded-xl hover:bg-yellow-300 transition shadow-xl hover:shadow-2xl transform hover:-translate-y-1 flex items-center gap-2 ring-4 ring-yellow-400/30 animate-pulse"><span>🔒</span> Unlock Full Guide (€2)</button>`;
+        }
+
+        async function askAI(lang) {
+            const suffix = lang === 'es' ? 'es' : 'en';
+            const input = document.getElementById(`ai-input-${suffix}`);
+            const responseDiv = document.getElementById(`ai-response-${suffix}`);
+            const textP = document.getElementById(`ai-text-${suffix}`);
+            const loading = document.getElementById(`ai-loading-${suffix}`);
+            
+            if(!input.value.trim()) return;
+            input.disabled = true; loading.classList.remove('hidden'); responseDiv.classList.add('hidden');
+
+            try {
+                const response = await callGeminiAPI(input.value, "Expert Spanish immigration consultant. Brief answers.");
+                textP.textContent = response;
+                responseDiv.classList.remove('hidden');
+            } catch(e) {
+                alert("Error connecting to AI.");
+            } finally {
+                loading.classList.add('hidden'); input.disabled = false;
+            }
+        }
+
+        async function callGeminiAPI(prompt, sys) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const res = await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], systemInstruction: { parts: [{ text: sys }] } }) });
+            if (!res.ok) throw new Error(res.status);
+            const data = await res.json();
+            return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response.";
+        }
+
+        function toggleLanguage() {
+            const es = document.getElementById('content-es');
+            const en = document.getElementById('content-en');
+            const icon = document.getElementById('lang-btn-icon');
+            const text = document.getElementById('lang-btn-text');
+
+            if (currentLang === 'es') {
+                es.classList.add('lang-hidden'); en.classList.remove('lang-hidden');
+                icon.textContent = '🇪🇸'; text.textContent = 'Versión en Español';
+                currentLang = 'en';
+            } else {
+                en.classList.add('lang-hidden'); es.classList.remove('lang-hidden');
+                icon.textContent = '🇺🇸'; text.textContent = 'English Version';
+                currentLang = 'es';
+            }
+        }
+
+        window.addEventListener('load', checkPaymentStatus);
+    </script>
+</body>
+</html>
